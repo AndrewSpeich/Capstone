@@ -1,0 +1,29 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+    var list = ViewBag.rooms;
+}
+
+<div class="jumbotron">
+    <h1>YouShare</h1>
+    <p class="lead">An ASP.Net MVC video sharing site to experience new and exciting things</p>
+   
+</div>
+
+@for (int i = 0; i < ViewBag.rooms.Count; i++)
+{
+    <div class="row col-sm-12">
+        
+        @for (int j = i + 3; i < j && i < ViewBag.rooms.Count; i++)
+        {
+                <a href=@("http://localhost:61236/Rooms/Details/"+ list[i].Name)>
+                    <div class="col-md-4" >
+                     <div><h2>@list[i].Name.PadRight(16).Substring(0, 15)</h2></div>
+                     <div><h2>@list[i].Name</h2></div>
+                     <div><h3>Created By @list[i].ApplicationUser.Email</h3></div>              
+                    </div>
+                    </a>
+                
+            }
+       @{i = i - 1;}
+    </div>
+}
