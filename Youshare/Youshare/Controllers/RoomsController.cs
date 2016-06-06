@@ -40,7 +40,16 @@ namespace Youshare.Controllers
             {
                 qID.Enqueue(i.VideoID);
             }
-            ViewBag.Songqueue = qID;
+            qID.Enqueue("hil1F2T19GY");
+            qID.Enqueue("npjF032TDDQ");
+            qID.Enqueue("yW0QKrvJPaU");
+            qID.Enqueue("cPJUBQd-PNM");
+            qID.Enqueue("I-sH53vXP2A");
+            qID.Enqueue("hil1F2T19GY");
+            qID.Enqueue("hil1F2T19GY");
+            qID.Enqueue("hil1F2T19GY");
+            qID.Enqueue("hil1F2T19GY");
+            ViewBag.Songqueue = qID.ToArray();
             return View(rooms);
         }
 

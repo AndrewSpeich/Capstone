@@ -12,8 +12,11 @@
 
         <script>
       // 2. This code loads the IFrame Player API code asynchronously.
-      var tag = document.createElement('script');
-
+            var tag = document.createElement('script');
+            var infolist = @Html.Raw(Json.Encode(ViewBag.Songqueue));
+           
+            var queue = [];
+            queue = infolist;
       tag.src = "https://www.youtube.com/iframe_api";
       var firstScriptTag = document.getElementsByTagName('script')[0];
       firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
@@ -35,20 +38,31 @@
 
       // 4. The API will call this function when the video player is ready.
       function onPlayerReady(event) {
-         
-          event.target.playVideo("iVKu5vRXJqY")
-          
+
+          event.target.playVideo()
+
       }
-          
+
       // 5. The API calls this function when the player's state changes.
       //    The function indicates that when playing a video (state=1),
             //    the player should play for six seconds and then stop.
-     
+
       var done = false;
       function onPlayerStateChange(event) {
-        if (event.data == YT.PlayerState.ENDED){
-            event.target.loadVideoById("hil1F2T19GY");
-            event.target.playVideo("hil1F2T19GY");
+          if (event.data == YT.PlayerState.ENDED) {
+              var nextsongs = queue;
+              var next = function(){ var send = nextsongs[0];
+                  for(var i = 0; i<nextsongs.length-1;i++){
+              nextsongs[i] = nextsongs[i+1]
+              
+                  }
+                  return send;
+
+              }
+              var nextsong = next();
+              console.log(nextsong);
+             event.target.loadVideoById(nextsong);
+             event.target.playVideo(nextsong);
           done = true;
         }
       }
